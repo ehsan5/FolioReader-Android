@@ -454,7 +454,7 @@ open class FolioActivity : AppCompatActivity(), FolioActivityCallback, MediaCont
     }
 
     @Throws(Exception::class)
-    private fun initBook() {
+    protected fun initBook() {
         Log.v(LOG_TAG, "-> initBook")
 
         bookFileName = FileUtil.getEpubFilename(this, mEpubSourceType!!, mEpubFilePath, mEpubRawId)
