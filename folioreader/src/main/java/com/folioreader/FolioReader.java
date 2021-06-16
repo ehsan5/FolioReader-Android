@@ -34,7 +34,7 @@ import java.util.concurrent.TimeUnit;
 public class FolioReader {
 
     @SuppressLint("StaticFieldLeak")
-    protexted static FolioReader singleton = null;
+    protected static FolioReader singleton = null;
 
     public static final String EXTRA_BOOK_ID = "com.folioreader.extra.BOOK_ID";
     public static final String EXTRA_READ_LOCATOR = "com.folioreader.extra.READ_LOCATOR";
