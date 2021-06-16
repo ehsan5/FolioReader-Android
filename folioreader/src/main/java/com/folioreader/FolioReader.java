@@ -47,9 +47,9 @@ public class FolioReader {
     protected Config config;
     protected boolean overrideConfig;
     protected int portNumber = Constants.DEFAULT_PORT_NUMBER;
-    private OnHighlightListener onHighlightListener;
-    private ReadLocatorListener readLocatorListener;
-    private OnClosedListener onClosedListener;
+    protected OnHighlightListener onHighlightListener;
+    protected ReadLocatorListener readLocatorListener;
+    protected OnClosedListener onClosedListener;
     protected ReadLocator readLocator;
 
     @Nullable
@@ -67,7 +67,7 @@ public class FolioReader {
         void onFolioReaderClosed();
     }
 
-    private BroadcastReceiver highlightReceiver = new BroadcastReceiver() {
+    protected BroadcastReceiver highlightReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             HighlightImpl highlightImpl = intent.getParcelableExtra(HighlightImpl.INTENT);
@@ -79,7 +79,7 @@ public class FolioReader {
         }
     };
 
-    private BroadcastReceiver readLocatorReceiver = new BroadcastReceiver() {
+    protected BroadcastReceiver readLocatorReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
 
@@ -90,7 +90,7 @@ public class FolioReader {
         }
     };
 
-    private BroadcastReceiver closedReceiver = new BroadcastReceiver() {
+    protected BroadcastReceiver closedReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (onClosedListener != null)
