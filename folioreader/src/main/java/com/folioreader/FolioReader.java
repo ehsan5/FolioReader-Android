@@ -43,10 +43,10 @@ public class FolioReader {
     public static final String ACTION_CLOSE_FOLIOREADER = "com.folioreader.action.CLOSE_FOLIOREADER";
     public static final String ACTION_FOLIOREADER_CLOSED = "com.folioreader.action.FOLIOREADER_CLOSED";
 
-    private Context context;
-    private Config config;
-    private boolean overrideConfig;
-    private int portNumber = Constants.DEFAULT_PORT_NUMBER;
+    protected Context context;
+    protected Config config;
+    protected boolean overrideConfig;
+    protected int portNumber = Constants.DEFAULT_PORT_NUMBER;
     private OnHighlightListener onHighlightListener;
     private ReadLocatorListener readLocatorListener;
     private OnClosedListener onClosedListener;
