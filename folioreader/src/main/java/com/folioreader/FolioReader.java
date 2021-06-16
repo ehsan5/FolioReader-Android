@@ -50,7 +50,7 @@ public class FolioReader {
     private OnHighlightListener onHighlightListener;
     private ReadLocatorListener readLocatorListener;
     private OnClosedListener onClosedListener;
-    private ReadLocator readLocator;
+    protected ReadLocator readLocator;
 
     @Nullable
     public Retrofit retrofit;
