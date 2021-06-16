@@ -113,10 +113,10 @@ public class FolioReader {
         return singleton;
     }
 
-    private FolioReader() {
+    protected FolioReader() {
     }
 
-    private FolioReader(Context context) {
+    protected FolioReader(Context context) {
         this.context = context;
         DbAdapter.initialize(context);
 
