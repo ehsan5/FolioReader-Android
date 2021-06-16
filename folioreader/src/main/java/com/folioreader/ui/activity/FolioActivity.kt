@@ -77,44 +77,44 @@ import java.lang.ref.WeakReference
 open class FolioActivity : AppCompatActivity(), FolioActivityCallback, MediaControllerCallback,
     View.OnSystemUiVisibilityChangeListener {
 
-    private var bookFileName: String? = null
+    protected var bookFileName: String? = null
 
-    private var mFolioPageViewPager: DirectionalViewpager? = null
-    private var actionBar: ActionBar? = null
-    private var appBarLayout: FolioAppBarLayout? = null
-    private var toolbar: Toolbar? = null
-    private var distractionFreeMode: Boolean = false
-    private var handler: Handler? = null
+    protected var mFolioPageViewPager: DirectionalViewpager? = null
+    protected var actionBar: ActionBar? = null
+    protected var appBarLayout: FolioAppBarLayout? = null
+    protected var toolbar: Toolbar? = null
+    protected var distractionFreeMode: Boolean = false
+    protected var handler: Handler? = null
 
-    private var currentChapterIndex: Int = 0
-    private var mFolioPageFragmentAdapter: FolioPageFragmentAdapter? = null
-    private var entryReadLocator: ReadLocator? = null
-    private var lastReadLocator: ReadLocator? = null
-    private var outState: Bundle? = null
-    private var savedInstanceState: Bundle? = null
+    protected var currentChapterIndex: Int = 0
+    protected var mFolioPageFragmentAdapter: FolioPageFragmentAdapter? = null
+    protected var entryReadLocator: ReadLocator? = null
+    protected var lastReadLocator: ReadLocator? = null
+    protected var outState: Bundle? = null
+    protected var savedInstanceState: Bundle? = null
 
-    private var r2StreamerServer: Server? = null
-    private var pubBox: PubBox? = null
-    private var spine: List<Link>? = null
+    protected var r2StreamerServer: Server? = null
+    protected var pubBox: PubBox? = null
+    protected var spine: List<Link>? = null
 
-    private var mBookId: String? = null
-    private var mEpubFilePath: String? = null
-    private var mEpubSourceType: EpubSourceType? = null
-    private var mEpubRawId = 0
-    private var mediaControllerFragment: MediaControllerFragment? = null
-    private var direction: Config.Direction = Config.Direction.VERTICAL
-    private var portNumber: Int = Constants.DEFAULT_PORT_NUMBER
-    private var streamerUri: Uri? = null
+    protected var mBookId: String? = null
+    protected var mEpubFilePath: String? = null
+    protected var mEpubSourceType: EpubSourceType? = null
+    protected var mEpubRawId = 0
+    protected var mediaControllerFragment: MediaControllerFragment? = null
+    protected var direction: Config.Direction = Config.Direction.VERTICAL
+    protected var portNumber: Int = Constants.DEFAULT_PORT_NUMBER
+    protected var streamerUri: Uri? = null
 
-    private var searchUri: Uri? = null
-    private var searchAdapterDataBundle: Bundle? = null
-    private var searchQuery: CharSequence? = null
-    private var searchLocator: SearchLocator? = null
+    protected var searchUri: Uri? = null
+    protected var searchAdapterDataBundle: Bundle? = null
+    protected var searchQuery: CharSequence? = null
+    protected var searchLocator: SearchLocator? = null
 
-    private var displayMetrics: DisplayMetrics? = null
-    private var density: Float = 0.toFloat()
-    private var topActivity: Boolean? = null
-    private var taskImportance: Int = 0
+    protected var displayMetrics: DisplayMetrics? = null
+    protected var density: Float = 0.toFloat()
+    protected var topActivity: Boolean? = null
+    protected var taskImportance: Int = 0
 
     companion object {
 
@@ -124,14 +124,14 @@ open class FolioActivity : AppCompatActivity(), FolioActivityCallback, MediaCont
         const val INTENT_EPUB_SOURCE_PATH = "com.folioreader.epub_asset_path"
         const val INTENT_EPUB_SOURCE_TYPE = "epub_source_type"
         const val EXTRA_READ_LOCATOR = "com.folioreader.extra.READ_LOCATOR"
-        private const val BUNDLE_READ_LOCATOR_CONFIG_CHANGE = "BUNDLE_READ_LOCATOR_CONFIG_CHANGE"
-        private const val BUNDLE_DISTRACTION_FREE_MODE = "BUNDLE_DISTRACTION_FREE_MODE"
+        protected const val BUNDLE_READ_LOCATOR_CONFIG_CHANGE = "BUNDLE_READ_LOCATOR_CONFIG_CHANGE"
+        protected const val BUNDLE_DISTRACTION_FREE_MODE = "BUNDLE_DISTRACTION_FREE_MODE"
         const val EXTRA_SEARCH_ITEM = "EXTRA_SEARCH_ITEM"
         const val ACTION_SEARCH_CLEAR = "ACTION_SEARCH_CLEAR"
-        private const val HIGHLIGHT_ITEM = "highlight_item"
+        protected const val HIGHLIGHT_ITEM = "highlight_item"
     }
 
-    private val closeBroadcastReceiver = object : BroadcastReceiver() {
+    protected val closeBroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             Log.v(LOG_TAG, "-> closeBroadcastReceiver -> onReceive -> " + intent.action!!)
 
@@ -163,7 +163,7 @@ open class FolioActivity : AppCompatActivity(), FolioActivityCallback, MediaCont
             return result
         }
 
-    private val searchReceiver = object : BroadcastReceiver() {
+    protected val searchReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             Log.v(LOG_TAG, "-> searchReceiver -> onReceive -> " + intent.action!!)
 
@@ -174,7 +174,7 @@ open class FolioActivity : AppCompatActivity(), FolioActivityCallback, MediaCont
         }
     }
 
-    private val currentFragment: FolioPageFragment?
+    protected val currentFragment: FolioPageFragment?
         get() = if (mFolioPageFragmentAdapter != null && mFolioPageViewPager != null) {
             mFolioPageFragmentAdapter!!
                 .getItem(mFolioPageViewPager!!.currentItem) as FolioPageFragment
@@ -188,7 +188,7 @@ open class FolioActivity : AppCompatActivity(), FolioActivityCallback, MediaCont
         SD_CARD
     }
 
-    private enum class RequestCode private constructor(internal val value: Int) {
+    protected enum class RequestCode protected constructor(internal val value: Int) {
         CONTENT_HIGHLIGHT(77),
         SEARCH(101)
     }
@@ -297,7 +297,7 @@ open class FolioActivity : AppCompatActivity(), FolioActivityCallback, MediaCont
         }
     }
 
-    private fun initActionBar() {
+    protected fun initActionBar() {
 
         appBarLayout = findViewById(R.id.appBarLayout)
         toolbar = findViewById(R.id.toolbar)
@@ -352,7 +352,7 @@ open class FolioActivity : AppCompatActivity(), FolioActivityCallback, MediaCont
         toolbar!!.setTitleTextColor(ContextCompat.getColor(this, R.color.night_title_text_color))
     }
 
-    private fun initMediaController() {
+    protected fun initMediaController() {
         Log.v(LOG_TAG, "-> initMediaController")
 
         mediaControllerFragment = MediaControllerFragment.getInstance(supportFragmentManager, this)
@@ -441,7 +441,7 @@ open class FolioActivity : AppCompatActivity(), FolioActivityCallback, MediaCont
         mediaControllerFragment!!.show(supportFragmentManager)
     }
 
-    private fun setupBook() {
+    protected fun setupBook() {
         Log.v(LOG_TAG, "-> setupBook")
         try {
             initBook()
@@ -499,11 +499,11 @@ open class FolioActivity : AppCompatActivity(), FolioActivityCallback, MediaCont
         FolioReader.initRetrofit(streamerUrl)
     }
 
-    private fun onBookInitFailure() {
+    protected fun onBookInitFailure() {
         //TODO -> Fail gracefully
     }
 
-    private fun onBookInitSuccess() {
+    protected fun onBookInitSuccess() {
 
         val publication = pubBox!!.publication
         spine = publication.readingOrder
@@ -566,7 +566,7 @@ open class FolioActivity : AppCompatActivity(), FolioActivityCallback, MediaCont
         }
     }
 
-    private fun initDistractionFreeMode(savedInstanceState: Bundle?) {
+    protected fun initDistractionFreeMode(savedInstanceState: Bundle?) {
         Log.v(LOG_TAG, "-> initDistractionFreeMode")
 
         window.decorView.setOnSystemUiVisibilityChangeListener(this)
@@ -643,7 +643,7 @@ open class FolioActivity : AppCompatActivity(), FolioActivityCallback, MediaCont
      * 2. In mobile landscape mode as navigation bar is placed either on left or right side,
      * 3. In tablets, navigation bar is always placed at bottom of the screen.
      */
-    private fun computeViewportRect(): Rect {
+    protected fun computeViewportRect(): Rect {
         //Log.v(LOG_TAG, "-> computeViewportRect");
 
         val viewportRect = Rect(appBarLayout!!.insets)
@@ -714,7 +714,7 @@ open class FolioActivity : AppCompatActivity(), FolioActivityCallback, MediaCont
         }
     }
 
-    private fun showSystemUI() {
+    protected fun showSystemUI() {
         Log.v(LOG_TAG, "-> showSystemUI")
 
         if (Build.VERSION.SDK_INT >= 16) {
@@ -730,7 +730,7 @@ open class FolioActivity : AppCompatActivity(), FolioActivityCallback, MediaCont
         }
     }
 
-    private fun hideSystemUI() {
+    protected fun hideSystemUI() {
         Log.v(LOG_TAG, "-> hideSystemUI")
 
         if (Build.VERSION.SDK_INT >= 16) {
@@ -851,7 +851,7 @@ open class FolioActivity : AppCompatActivity(), FolioActivityCallback, MediaCont
         return currentChapterIndex
     }
 
-    private fun configFolio() {
+    protected fun configFolio() {
 
         mFolioPageViewPager = findViewById(R.id.folioPageViewPager)
         // Replacing with addOnPageChangeListener(), onPageSelected() is not invoked
@@ -933,7 +933,7 @@ open class FolioActivity : AppCompatActivity(), FolioActivityCallback, MediaCont
         )
     }
 
-    private fun getChapterIndex(readLocator: ReadLocator?): Int {
+    protected fun getChapterIndex(readLocator: ReadLocator?): Int {
 
         if (readLocator == null) {
             return 0
@@ -944,7 +944,7 @@ open class FolioActivity : AppCompatActivity(), FolioActivityCallback, MediaCont
         return 0
     }
 
-    private fun getChapterIndex(caseString: String, value: String): Int {
+    protected fun getChapterIndex(caseString: String, value: String): Int {
         for (i in spine!!.indices) {
             when (caseString) {
                 Constants.HREF -> if (spine!![i].href == value)
@@ -977,7 +977,7 @@ open class FolioActivity : AppCompatActivity(), FolioActivityCallback, MediaCont
         this.lastReadLocator = lastReadLocator
     }
 
-    private fun setConfig(savedInstanceState: Bundle?) {
+    protected fun setConfig(savedInstanceState: Bundle?) {
 
         var config: Config?
         val intentConfig = intent.getParcelableExtra<Config>(Config.INTENT_CONFIG)
@@ -1042,7 +1042,7 @@ open class FolioActivity : AppCompatActivity(), FolioActivityCallback, MediaCont
         return direction
     }
 
-    private fun clearSearchLocator() {
+    protected fun clearSearchLocator() {
         Log.v(LOG_TAG, "-> clearSearchLocator")
 
         val fragments = mFolioPageFragmentAdapter!!.fragments
