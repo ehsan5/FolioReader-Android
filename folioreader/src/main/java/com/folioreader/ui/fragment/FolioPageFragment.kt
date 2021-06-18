@@ -89,7 +89,7 @@ class FolioPageFragment : Fragment(),
     protected var rangy = ""
     protected var highlightId: String? = null
 
-    protected var lastReadLocator: ReadLocator? = null
+    private var lastReadLocator: ReadLocator? = null
     protected var outState: Bundle? = null
     protected var savedInstanceState: Bundle? = null
 
