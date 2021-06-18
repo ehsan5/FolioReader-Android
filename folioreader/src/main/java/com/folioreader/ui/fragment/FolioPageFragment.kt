@@ -83,40 +83,40 @@ class FolioPageFragment : Fragment(),
     }
 
     private lateinit var uiHandler: Handler
-    private var mHtmlString: String? = null
+    protected var mHtmlString: String? = null
     private val hasMediaOverlay = false
-    private var mAnchorId: String? = null
-    private var rangy = ""
-    private var highlightId: String? = null
+    protected var mAnchorId: String? = null
+    protected var rangy = ""
+    protected var highlightId: String? = null
 
-    private var lastReadLocator: ReadLocator? = null
-    private var outState: Bundle? = null
-    private var savedInstanceState: Bundle? = null
+    protected var lastReadLocator: ReadLocator? = null
+    protected var outState: Bundle? = null
+    protected var savedInstanceState: Bundle? = null
 
-    private var mRootView: View? = null
+    protected var mRootView: View? = null
 
-    private var loadingView: LoadingView? = null
-    private var mScrollSeekbar: VerticalSeekbar? = null
+    protected var loadingView: LoadingView? = null
+    protected var mScrollSeekbar: VerticalSeekbar? = null
     var mWebview: FolioWebView? = null
-    private var webViewPager: WebViewPager? = null
-    private var mPagesLeftTextView: TextView? = null
-    private var mMinutesLeftTextView: TextView? = null
-    private var mActivityCallback: FolioActivityCallback? = null
+    protected var webViewPager: WebViewPager? = null
+    protected var mPagesLeftTextView: TextView? = null
+    protected var mMinutesLeftTextView: TextView? = null
+    protected var mActivityCallback: FolioActivityCallback? = null
 
-    private var mTotalMinutes: Int = 0
-    private var mFadeInAnimation: Animation? = null
-    private var mFadeOutAnimation: Animation? = null
+    protected var mTotalMinutes: Int = 0
+    protected var mFadeInAnimation: Animation? = null
+    protected var mFadeOutAnimation: Animation? = null
 
     lateinit var spineItem: Link
-    private var spineIndex = -1
-    private var mBookTitle: String? = null
-    private var mIsPageReloaded: Boolean = false
+    protected var spineIndex = -1
+    protected var mBookTitle: String? = null
+    protected var mIsPageReloaded: Boolean = false
 
-    private var highlightStyle: String? = null
+    protected var highlightStyle: String? = null
 
-    private var mediaController: MediaController? = null
-    private var mConfig: Config? = null
-    private var mBookId: String? = null
+    protected var mediaController: MediaController? = null
+    protected var mConfig: Config? = null
+    protected var mBookId: String? = null
     var searchLocatorVisible: SearchLocator? = null
 
     private lateinit var chapterUrl: Uri
