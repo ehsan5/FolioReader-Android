@@ -101,7 +101,7 @@ open class FolioPageFragment : Fragment(),
     protected var webViewPager: WebViewPager? = null
     protected var mPagesLeftTextView: TextView? = null
     protected var mMinutesLeftTextView: TextView? = null
-    protected open var mActivityCallback: FolioActivityCallback? = null
+     open var mActivityCallback: FolioActivityCallback? = null
 
     protected var mTotalMinutes: Int = 0
     protected var mFadeInAnimation: Animation? = null
