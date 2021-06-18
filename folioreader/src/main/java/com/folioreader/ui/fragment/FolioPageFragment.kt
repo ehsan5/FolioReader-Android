@@ -350,7 +350,7 @@ open class FolioPageFragment : Fragment(),
     }
 
     @SuppressLint("JavascriptInterface", "SetJavaScriptEnabled")
-    public fun initWebView() {
+    protected open fun initWebView() {
 
         val webViewLayout = mRootView!!.findViewById<FrameLayout>(R.id.webViewLayout)
         mWebview = webViewLayout.findViewById(R.id.folioWebView)
